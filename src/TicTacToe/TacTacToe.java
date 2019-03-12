@@ -152,28 +152,16 @@ package TicTacToe;
 //     * @param mark an int representing either player
      */
     public void makeMove(int rowIndex, int columnIndex, User player){
-//        System.out.println("Making Move");
-        System.out.println("Current Player: " + this.currentTurn);
-//        System.out.println("Current Stage: " + this.currentStage);
-//        System.out.println("0 Stage: " + this.O_stage);
-//        System.out.println("X Stage: " + this.X_stage);
-//        System.out.println("First Stage: " + this.firstStage);
-
         if(!isValid(rowIndex, columnIndex)){
             return;
         }
         board.getBoard().get(rowIndex).set(columnIndex,player.getName());
-//        System.out.println(board.getBoard().get(rowIndex).get(columnIndex));
-//        board.updateBoard();
         emptyCells --;
         checkWinner(player.getName());
         if(!winner.isEmpty()){
-            System.out.println("WINNER: " + winner);
             return;
         }
-        //previous_move = Nextmove;
         changeplayer();
-//        board.printBoard();
     }
 
     private void checkWinner(String playername){

@@ -10,25 +10,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller {
-    TicTacToe game;
-    User player1, player2;
+    private TicTacToe game;
+//    private User player1, player2;
     private int turn = 0;
-    public Button b1;
-    public Button b2;
-    public Button b3;
-    public Button b4;
-    public Button b5;
-    public Button b6;
-    public Button b7;
-    public Button b8;
-    public Button b9;
+    public Button b1, b2, b3, b4, b5, b6, b7, b8, b9;
+
 
     public Controller() {
-        System.out.println("TicTacToe was initialized!");
         // Initialize Players
         game = new TicTacToe();
-        player1 = new User("Kenny");
-        player2 = new User("Gev");
+        User player1 = new User("Kenny");
+        User player2 = new User("Gev");
         game.setStages(player1, player2);
         game.setFirstStage("0", player1);
     }
@@ -36,105 +28,54 @@ public class Controller {
     public void handleButtonClicked(Event event) {
         Button source = (Button) event.getSource();
         if (source.equals(b1)) {
-            if (game.isValid(0, 0)) {
-                game.makeMove(0, 0, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
-
-
-            }
+            handleMove(source,0,0);
         }
         if (source.equals(b2)) {
-            if (game.isValid(0, 1)) {
-                game.makeMove(0, 1, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,0,1);
 
-
-            }
         }
         if (source.equals(b3)) {
-            if (game.isValid(0, 2)) {
-                game.makeMove(0, 2, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,0,2);
 
-
-            }
         }
         if (source.equals(b4)) {
-            if (game.isValid(1, 0)) {
-                game.makeMove(1, 0, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,1,0);
 
-
-            }
         }
         if (source.equals(b5)) {
-            if (game.isValid(1, 1)) {
-                game.makeMove(1, 1, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,1,1);
 
-
-            }
         }
         if (source.equals(b6)) {
-            if (game.isValid(1, 2)) {
-                game.makeMove(1, 2, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,1,2);
 
-
-
-            }
         }
         if (source.equals(b7)) {
-            if (game.isValid(2, 0)) {
-                game.makeMove(2, 0, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,2,0);
 
-
-            }
         }
         if (source.equals(b8)) {
-            if (game.isValid(2, 1)) {
-                game.makeMove(2, 1, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
+            handleMove(source,2,1);
 
-
-            }
         }
         if (source.equals(b9)) {
-            if (game.isValid(2, 2)) {
-                game.makeMove(2, 2, game.currentTurn);
-                handleMove(source);
-                System.out.println("Made Move!");
-                switchMove();
-
-
-            }
+            handleMove(source,2,2);
         }
         if (!game.getWinner().isEmpty() || game.isGameOver()) {
-            System.out.println("GAME IS OVER");
             this.createEndGame();
-            return;
         }
 
     }
 
-    public void handleMove(Button button) {
+    private void handleMove(Button source, int row, int col){
+        if (game.isValid(row, col)) {
+            game.makeMove(row, col, game.currentTurn);
+            handleMove(source);
+            switchMove();
+        }
+    }
+
+    private void handleMove(Button button) {
         if (this.turn == 0) {
             button.setStyle("-fx-text-fill: red");
             button.setText("0");
@@ -144,7 +85,7 @@ public class Controller {
         }
     }
 
-    public void switchMove() {
+    private void switchMove() {
         if (this.turn == 0) {
             this.turn = 1;
         } else if (this.turn == 1) {
@@ -191,7 +132,7 @@ public class Controller {
 //        dialog.show();
 //    }
 
-    public String winnerOrTie() {
+    private String winnerOrTie() {
         if (!game.getWinner().isEmpty()) {
             return "Winner!: " + game.getWinner();
         } else if (game.isGameOver()) {
